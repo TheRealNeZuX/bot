@@ -1,0 +1,4 @@
+aiogram
+youtube_dl
+asyncio
+os
