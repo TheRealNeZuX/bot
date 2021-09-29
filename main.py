@@ -4,6 +4,14 @@ import youtube_dl
 import os
 import time
 
+#     ЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ      h            TTTTTTTTTTTTTTT
+#            ЕЕ              h            T
+#            ЕЕ              h  hh        T
+#            ЕЕ              hh    h      TTTTTTTTTTTTTTT
+#            ЕЕ              h      h     T
+#            ЕЕ              h      h     T
+#            ЕЕ              h      h     TTTTTTTTTTTTTTT       
+
 #bot data
 bot=aiogram.Bot(config.TOKEN)
 dp=aiogram.Dispatcher(bot)
@@ -43,21 +51,5 @@ async def text(msg):
 @dp.message_handler()
 async def txt(msg):
     await msg.answer("Я тебя не понял, напиши /help")
-@dp.message_handler(content_types=["url"])
-async def url(msg):
-    url=msg.text
-    name=msg.from_user.id
-    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), f'{name}.mp4')
-    opts={'outtmpl': path}
-    with youtube_dl.YoutubeDL(opts) as ydl:
-        await msg.answer("Ждите🔮")  
-        ydl.download([url]) 
-    try:
-        with open(path, "rb") as f:
-            await msg.answer_video(f) 
-    except:
-        await msg.answer("Простите, телеграмм не позволяет отправлять такие тяжёлые видео, но я с удовольствием скачаю видео длиною ~ 10 мин🥶")
-    os.remove(path)
-    
 
 aiogram.executor.start_polling(dp, skip_updates=True)
