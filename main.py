@@ -12,7 +12,7 @@ dp=aiogram.Dispatcher(bot)
 @dp.message_handler(commands=["start"])
 async def start(msg):
     await msg.answer("Привет, я бот для скачивания видео с ютуб, напиши мне /help")
-    await bot.send_message(i for i in config.AdminID, f"Пользователь {msg.from_user.first_name} присоединился")
+    await bot.send_message(config.AdminID, f"Пользователь {msg.from_user.first_name} присоединился")
 
 @dp.message_handler(commands=["help"])
 async def help(msg):
