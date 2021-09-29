@@ -2,6 +2,7 @@ import aiogram
 import config
 import youtube_dl
 import os
+import time
 
 #bot data
 bot=aiogram.Bot(config.TOKEN)
@@ -18,7 +19,9 @@ async def start(msg):
 @dp.message_handler(commands=["help"])
 async def help(msg):
     await msg.answer("Напиши сообщение типа:")
+    time.sleep(1)
     await msg.answer("/download https://www.youtube.com/watch?v=vgUOhL0MtfY")
+    time.sleep(1)
     await msg.answer("Если видео на скачалось то либо подождите, либо оно весит слишком много(его длина должна быть~10 мин)")
 
 @dp.message_handler(commands=["download"])
