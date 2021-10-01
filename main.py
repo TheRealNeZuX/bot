@@ -61,8 +61,10 @@ async def off(msg):
 
 @dp.message_handler(commands=["on"]) 
 async def off(msg):
-    if msg.from_user.id in config.AdminID:
-       global notification
-       notification=False
-
+    global notification
+    notification=False
+@dp.message_handler(commands="off") 
+async def off(msg):
+    global notification
+    notification=False 
 aiogram.executor.start_polling(dp, skip_updates=True)
