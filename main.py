@@ -16,13 +16,14 @@ import time
 bot=aiogram.Bot(config.TOKEN)
 dp=aiogram.Dispatcher(bot)
 #text status: 0-text, 1-download
-
+notification=True
 
 @dp.message_handler(commands=["start"])
 async def start(msg):
     await msg.answer("Привет, я бот для скачивания видео с ютуб, напиши мне /help")
+    global notification
     for i in config.AdminID:
-        await bot.send_message(i, f"Пользователь {msg.from_user.first_name} присоединился")
+        await bot.send_message(i, f"Пользователь {msg.from_user.first_name} присоединился", disable_notification=notification)
 
 @dp.message_handler(commands=["help"])
 async def help(msg):
@@ -51,5 +52,17 @@ async def text(msg):
 @dp.message_handler()
 async def txt(msg):
     await msg.answer("Я тебя не понял, напиши /help")
+
+@dp.message_handler(commands="off") 
+async def off(msg):
+    if msg.from_user.id in config.AdminID:
+       global notification
+       notification=False 
+
+@dp.message_handler(commands="on") 
+async def off(msg):
+    if msg.from_user.id in config.AdminID:
+       global notification
+       notification=True
 
 aiogram.executor.start_polling(dp, skip_updates=True)
