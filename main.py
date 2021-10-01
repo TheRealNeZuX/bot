@@ -53,13 +53,13 @@ async def text(msg):
 async def txt(msg):
     await msg.answer("Я тебя не понял, напиши /help")
 
-@dp.message_handler(commands="off") 
+@dp.message_handler(commands=["off"]) 
 async def off(msg):
     if msg.from_user.id in config.AdminID:
        global notification
        notification=True
 
-@dp.message_handler(commands="on") 
+@dp.message_handler(commands=["on"]) 
 async def off(msg):
     if msg.from_user.id in config.AdminID:
        global notification
