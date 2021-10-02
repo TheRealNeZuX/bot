@@ -10,7 +10,6 @@
 import aiogram
 import config
 import youtube_dl
-from pytube import YouTube
 import os
 import time
 import json
