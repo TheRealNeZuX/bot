@@ -1,39 +1,49 @@
+###################################################
+#   L               EeEeEeEeE       OOOOOOO       #
+#   L               E              O       O      #
+#   L               E             O         O     #
+#   L               EeEeEeEeE     O         O     #
+#   L               E             O         O     #
+#   L               E              O       O      #
+#   LlLlLlLlLlL     EeEeEeEeE       OOOOOOO       #  
+###################################################
 import aiogram
 import config
 import youtube_dl
+from pytube import YouTube
 import os
 import time
-
-#     ЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕ      h            TTTTTTTTTTTTTTT
-#            ЕЕ              h            T
-#            ЕЕ              h  hh        T
-#            ЕЕ              hh    h      TTTTTTTTTTTTTTT
-#            ЕЕ              h      h     T
-#            ЕЕ              h      h     T
-#            ЕЕ              h      h     TTTTTTTTTTTTTTT       
+import json
 
 #bot data
 bot=aiogram.Bot(config.TOKEN)
 dp=aiogram.Dispatcher(bot)
-#text status: 0-text, 1-download
-notification=True
+disable=False
 
-@dp.message_handler(commands=["start"])
+#start
+@dp.message_handler(commands="start")
 async def start(msg):
+    global disable
     await msg.answer("Привет, я бот для скачивания видео с ютуб, напиши мне /help")
-    global notification
-    for i in config.AdminID:
-        await bot.send_message(i, f"Пользователь {msg.from_user.first_name} присоединился", disable_notification=notification)
+    data=json.load(open("data.json", "r"))
+    if msg.from_user.id not in data["UserID"]:
+        data["UserID"].append(msg.from_user.id)
+        with open("data.json", "w") as f:
+            json.dump(data, f)
+        for i in data["AdminID"]:
+            await bot.send_message(i, f"User {msg.from_user.first_name} started", disable_notification=disable)
 
-@dp.message_handler(commands=["help"])
+#help
+@dp.message_handler(commands="help")
 async def help(msg):
     await msg.answer("Напиши сообщение типа:")
     time.sleep(1)
     await msg.answer("/download https://www.youtube.com/watch?v=vgUOhL0MtfY")
     time.sleep(1)
-    await msg.answer("Если видео на скачалось то либо подождите, либо оно весит слишком много(его длина должна быть~10 мин)")
+    await msg.answer("Если видео не скачалось то либо подождите, либо оно весит слишком много(его длина должна быть~10 мин)")
 
-@dp.message_handler(commands=["download"])
+#download
+@dp.message_handler(commands="download")
 async def text(msg):
     url=msg.text.split("/download ")[1]
     name=msg.from_user.id
@@ -46,19 +56,41 @@ async def text(msg):
         with open(path, "rb") as f:
             await msg.answer_video(f) 
     except:
-        await msg.answer("Простите, телеграмм не позволяет отправлять такие тяжёлые видео, но я с удовольствием скачаю видео длиною ~ 10 мин🥶")
+        await msg.answer("Простите, telegram не позволяет отправлять такие тяжёлые видео, но я с удовольствием скачаю видео длиною ~ 10 мин🥶")
     os.remove(path)
 
-@dp.message_handler()
+#notification
+@dp.message_handler(commands="notification")
+async def notification(msg):
+    turn=msg.text.split("/notification ")[1]
+    global disable
+    if msg.from_user.id in json.load(open("data.json","r"))["AdminID"]:
+        if turn=="off":
+            disable=True
+            await msg.answer("Уведомления отключены")
+        else:
+            disable=False
+            await msg.answer("Уведомления включены")
+
+#usersID
+@dp.message_handler(commands="users")
+async def users(msg):
+    if msg.from_user.id in json.load(open("data.json","r"))["AdminID"]:
+        data=json.load(open("data.json", "r"))
+        data="  ".join(map(str, data["UserID"]))
+        await msg.answer(data)
+
+#text
+@dp.message_handler(content_types=aiogram.types.ContentTypes.TEXT)
 async def txt(msg):
     await msg.answer("Я тебя не понял, напиши /help")
 
-@dp.message_handler(commands=["on"]) 
-async def off(msg):
-    global notification
-    notification=False
-@dp.message_handler(commands=["off"]) 
-async def off(msg):
-    global notification
-    notification=False 
+
+#sticker
+@dp.message_handler(content_types=aiogram.types.ContentTypes.STICKER)
+async def stiker(msg):
+    await msg.answer(f"🆔:\n{msg.sticker.file_id}")
+
+
+#circle
 aiogram.executor.start_polling(dp, skip_updates=True)
