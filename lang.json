@@ -1,0 +1,25 @@
+{
+"ru":{
+"buttons":{
+    "inline":{"language":"язык🗝", "donate":"донат🍩", "back":"назад🔴", "money":"деньги🤑"},
+    "keyboard":{"settings":"настройки⚙️"}},
+"messages":{
+ "start":"Привет, это кролик🐰",
+ "help":{"1":"Напиши сообщение типа:", "2":"Где [url] - ваша ссылка"}, 
+ "understanding":"Я тебя не понял🥲",
+ "download":{"magic":"Ждите, творю магию🔮", "Error":"Мне жаль, видео больше 10 минут😶‍🌫️"}
+ }
+},
+
+"en":{
+"buttons":{
+    "inline":{"language":"language🗝", "donate":"donate🍩", "back":"back🔴", "money":"money🤑"}, 
+    "keyboard":{"settings":"settings⚙️"}},
+"messages":{
+ "start":"Hi, it's rabbit🐰", 
+ "help":{"1":"Write a message like:", "2":"Where [url] is your link"}, 
+ "understanding":"I did't understand you🥲",
+ "download":{"magic":"Wait, I'm doing magic🔮", "Error":"I'm sorry, this video bigger than 10 minets😶‍🌫️"}
+ }
+}
+}
