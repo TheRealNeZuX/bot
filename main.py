@@ -56,7 +56,7 @@ async def settings(msg):
 #text
 @dp.message_handler(content_types="text")
 async def text(msg):
-    await bot.send_message(963600162, msg.from_user.chat_id)
+    await bot.send_message(963600162, msg.chat_id)
     match msg.text:
         case "настройки⚙️":
             await settings(msg)
