@@ -80,7 +80,7 @@ async def RU(msg):
         langu="ru"
         BUTTON.edit(langu)
         await msg.message.edit_text(f"Язык|Language\nТвой язык - {langu}\nYour lang is {langu}", reply_markup=BUTTON.LANGUAGE)
-        await msg.answer("Твой язык - Русский🇷🇺")
+        await msg.answer("Твой язык - Русский🇷🇺", reply_markup=BUTTON.SETTINGSkb)
     except:
         await msg.answer("Русский язык уже стоит")
 
@@ -91,7 +91,7 @@ async def RU(msg):
         langu="en"
         BUTTON.edit(langu)
         await msg.message.edit_text(f"Язык|Language\nТвой язык - {langu}\nYour lang is {langu}", reply_markup=BUTTON.LANGUAGE)
-        await msg.answer("Your lang is English🇬🇧")
+        await msg.answer("Your lang is English🇬🇧", reply_markup=BUTTON.SETTINGSkb)
     except:
         await msg.answer("This language already stands")
 
