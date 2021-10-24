@@ -38,3 +38,4 @@ class Buttons:
         self.SETTINGSkb=ReplyKeyboardMarkup(resize_keyboard=True).add(self.settings)
         self.SETTINGSinline=InlineKeyboardMarkup(row_width=2).add(self.lang, self.donate)        
         self.DONATE=InlineKeyboardMarkup(row_width=2).add(self.yt, self.money, self.back)
+        self.LANGUAGE=InlineKeyboardMarkup(row_width=2).add(self.ru, self.en, self.back)
