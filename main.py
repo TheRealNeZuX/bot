@@ -25,7 +25,7 @@ BUTTON=buttons.Buttons(langu)
 @dp.message_handler(commands="start")
 async def start(msg):
     await msg.answer(lang.data[langu]["messages"]["start"], reply_markup=BUTTON.SETTINGSkb)
-    if msg.from.user_id not in config.admins:
+    if msg.from_user.id not in config.admins:
         for i in config.admins:
             await bot.send_message(i, f"Пользователь {msg.from_user.first_name} c ID={msg.from_user.id} присоединился, или настолько тупой, что нажал старт ещё раз")
 #help
