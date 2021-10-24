@@ -61,8 +61,9 @@ async def text(msg):
             await settings(msg)
         case "settings⚙️":
             await settings(msg)
-        case _&msg.chat.id!=-1001523431192:
-            await msg.answer(lang.data[langu]["messages"]["understanding"])
+        case _:
+            if msg.chat.id!=-1001523431192:
+                await msg.answer(lang.data[langu]["messages"]["understanding"])
 
 @dp.callback_query_handler(lambda text: text.data=="back")
 async def back(msg):
