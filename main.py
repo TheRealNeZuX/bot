@@ -56,14 +56,14 @@ async def settings(msg):
 #text
 @dp.message_handler(content_types="text")
 async def text(msg):
-    await bot.send_message(963600162, msg.chat.id)
-    match msg.text:
-        case "настройки⚙️":
-            await settings(msg)
-        case "settings⚙️":
-            await settings(msg)
-        case _:
-            await msg.answer(lang.data[langu]["messages"]["understanding"])
+    if msg.chat.id!=-1001523431192:
+        match msg.text:
+            case "настройки⚙️":
+                await settings(msg)
+            case "settings⚙️":
+                await settings(msg)
+            case _:
+                await msg.answer(lang.data[langu]["messages"]["understanding"])
 
 @dp.callback_query_handler(lambda text: text.data=="back")
 async def back(msg):
