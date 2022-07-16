@@ -62,7 +62,7 @@ async def text(msg):
         case "settings⚙️":
             await settings(msg)
         case _:
-            if msg.chat.id!=-1001523431192:
+            if msg.chat.id!=\*censored\*:
                 await msg.answer(lang.data[langu]["messages"]["understanding"])
 
 @dp.callback_query_handler(lambda text: text.data=="back")
